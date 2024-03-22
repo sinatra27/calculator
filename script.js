@@ -1,9 +1,97 @@
-// Declare variables for two numbers and an operator
-let num1, num2, operator, result;
+// Declare variables for two numbers, an operator, and the result
+let num1 = 0;
+let num2 = 0;
+let operator;
+let calculated = false;
 
-num1 = 5;
-num2 = 0;
-operator = 'subtract';
+// Select calculator display, operands, and operator
+const operands = document.querySelectorAll('.operand');
+const operators = document.querySelectorAll('.operator');
+const display = document.querySelector('#display');
+const equals = document.querySelector('#equal');
+const clear = document.querySelector('#clear');
+const plusMinus = document.querySelector('#sign');
+const percentage = document.querySelector('#percentage');
+const decimal = document.querySelector('#decimal');
+// const backspace = document.querySelector('#backspace');
+
+// Update calculator operands, operator, and display when button click event is triggered
+operands.forEach((num) => {
+    num.addEventListener('click', () => {
+        // event.stopPropagation();
+        if (num1 === undefined) return;
+        if (calculated === true) {
+            num1 = 0;
+            calculated = false;
+        };
+        if (operator === undefined) {
+            num1 += num.value;
+            num1 = Number(num1);
+            display.innerHTML = num1;
+        } else {
+            num2 += num.value;
+            num2 = Number(num2);
+            display.innerHTML = num2;
+        }
+    });
+});
+
+operators.forEach((ops) => {
+    ops.addEventListener('click', () => {
+        // event.stopPropagation();
+        // event.target.classList.toggle('selected');          // need to remove once calculated or cleared
+        if (num1 === undefined) return;
+        operator = ops.value;
+        calculated = false;
+    });
+});
+
+equals.addEventListener('click', operate);
+
+clear.addEventListener('click', () => {
+    num1 = num2 = 0;
+    operator = undefined;
+    calculated = false;
+    display.innerHTML = num1;
+});
+
+plusMinus.addEventListener('click', () => {
+    if (num1 === undefined) return;
+    if (operator === undefined) {
+        num1 = -num1;
+        display.innerHTML = num1;
+    } else {
+        num2 = -num2;
+        display.innerHTML = num2;
+    }
+});
+
+percentage.addEventListener('click', () => {
+    if (num1 === undefined) return;
+    if (operator === undefined) {
+        num1 /= 100;
+        display.innerHTML = num1;
+    } else {
+        num2 /= 100;
+        display.innerHTML = num2;
+    }
+});
+
+// Perform calculations by calling math functions
+function operate() {
+    // Conditionals when no operator selected and when dividing by zero
+    if (operator === undefined) return;
+    if (num2 == 0 && operator == '/') num1 = undefined;
+    else if (operator == '+') num1 = add(num1, num2);
+    else if (operator == '-') num1 = subtract(num1, num2);
+    else if (operator == '*') num1 = multiply(num1, num2);
+    else num1 = divide(num1, num2);
+    display.innerHTML = num1;
+    calculated = true;
+    // Reset values
+    num2 = 0;
+    operator = undefined;
+}
 
 // Addition function that accepts two numbers and returns the result
 function add(n1, n2) {
@@ -25,15 +113,4 @@ function divide(n1, n2) {
     return n1 / n2;
 }
 
-// Operate function that accepts two numbers and an operator then calls a math function
-function operate(n1, n2, op) {
-    // Conditionals when the second number is zero and the operator
-    if (num2 == 0 && op == 'divide') result = undefined;
-    else if (op == 'add') result = add(n1, n2);
-    else if (op == 'subtract') result = subtract(n1, n2);
-    else if (op == 'multiply') result = multiply(n1, n2);
-    else result = divide(n1, n2);
-    return result;
-}
-
-console.log(operate(num1, num2, operator));
+// console.log(operate(num1, num2, operator));
