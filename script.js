@@ -19,14 +19,13 @@ operands.forEach((num) => {
     num.addEventListener('click', () => {
         // event.stopPropagation();
         if (num1 === undefined) return;
+        if (num1 == 0) num1 = num1.toString().slice(1);
+        if (num2 == 0) num2 = num2.toString().slice(1);
         if (operator === undefined) {
             num1 += num.value;
-            // num1 = num1.toString() + num.value;      // can't type zero as decimal
-            num1 = +num1;
             display.innerHTML = num1;
         } else {
             num2 += num.value;
-            num2 = +num2;
             display.innerHTML = num2;
         }
     });
@@ -95,16 +94,18 @@ backspace.addEventListener('click', () => {
     if (num1 === undefined) return;
     if (operator === undefined) {
         // num1 = Math.floor(num1 / 10);
-        num1 = +(num1.toString().slice(0, -1));
+        num1 = num1.toString().slice(0, -1);
         display.innerHTML = num1;
     } else {
-        num2 = +(num2.toString().slice(0, -1));
+        num2 = num2.toString().slice(0, -1);
         display.innerHTML = num2;
     }
 });
 
 // Perform calculations by calling math functions
 function operate() {
+    num1 = +num1;
+    num2 = +num2;
             console.log(num1, typeof(num1), operator, num2, typeof(num2));
     // Conditionals when no operator selected and when dividing by zero
     if (operator === undefined) return;
