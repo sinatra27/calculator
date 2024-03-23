@@ -1,4 +1,4 @@
-// Declare variables for two numbers, an operator, and the result
+// Declare variables for two numbers and an operator
 let num1 = 0;
 let num2 = 0;
 let operator;
@@ -19,8 +19,8 @@ operands.forEach((num) => {
     num.addEventListener('click', () => {
         // event.stopPropagation();
         if (num1 === undefined) return;
-        if (num1 == 0) num1 = num1.toString().slice(1);
-        if (num2 == 0) num2 = num2.toString().slice(1);
+        if (num1 == 0 && num1[1] != '.') num1 = num1.toString().slice(1);
+        if (num2 == 0 && num2[1] != '.') num2 = num2.toString().slice(1);
         if (operator === undefined) {
             num1 += num.value;
             display.innerHTML = num1;
@@ -36,12 +36,8 @@ operators.forEach((ops) => {
         // event.stopPropagation();
         // event.target.classList.toggle('selected');          // need to remove once calculated or cleared
         if (num1 === undefined) return;
-        if (operator === undefined) {
-            operator = ops.value;
-        } else {
-            operate();
-            operator = ops.value;
-        }        
+        if (operator != undefined) operate();
+        operator = ops.value;
     });
 });
 
@@ -94,10 +90,14 @@ backspace.addEventListener('click', () => {
     if (num1 === undefined) return;
     if (operator === undefined) {
         // num1 = Math.floor(num1 / 10);
-        num1 = num1.toString().slice(0, -1);
+        num1 = num1.toString();
+        if (num1.length > 1) num1 = num1.slice(0 , -1);
+        else num1 = 0;
         display.innerHTML = num1;
     } else {
-        num2 = num2.toString().slice(0, -1);
+        num2 = num2.toString();
+        if (num2.length > 1) num2 = num2.slice(0 , -1);
+        else num2 = 0;
         display.innerHTML = num2;
     }
 });
