@@ -19,12 +19,12 @@ operands.forEach((num) => {
     num.addEventListener('click', () => {
         // event.stopPropagation();
         if (num1 === undefined) return;
-        if (num1 == 0 && num1[1] != '.') num1 = num1.toString().slice(1);
-        if (num2 == 0 && num2[1] != '.') num2 = num2.toString().slice(1);
         if (operator === undefined) {
+            if (num1 == 0 && num1[1] != '.') num1 = num1.toString().slice(1);
             num1 += num.value;
             display.innerHTML = num1;
         } else {
+            if (num2 == 0 && num2[1] != '.') num2 = num2.toString().slice(1);
             num2 += num.value;
             display.innerHTML = num2;
         }
@@ -33,7 +33,6 @@ operands.forEach((num) => {
 
 operators.forEach((ops) => {
     ops.addEventListener('click', () => {
-        // event.stopPropagation();
         // event.target.classList.toggle('selected');          // need to remove once calculated or cleared
         if (num1 === undefined) return;
         if (operator != undefined) operate();
