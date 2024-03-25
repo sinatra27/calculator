@@ -18,14 +18,14 @@ const backspace = document.querySelector('#backspace');
 operands.forEach((num) => {
     num.addEventListener('click', () => {
         // event.stopPropagation();
-        if (num1 === undefined) return;
+        if (num1 === undefined || String(num1).length > 12) return;
         if (operator === undefined) {
             if (num1 == 0 && num1[1] != '.') num1 = num1.toString().slice(1);
-            num1 += num.value;
+            if (num1.length < 12) num1 += num.value;
             display.innerHTML = num1;
         } else {
             if (num2 == 0 && num2[1] != '.') num2 = num2.toString().slice(1);
-            num2 += num.value;
+            if (num2 .length < 12) num2 += num.value;
             display.innerHTML = num2;
         }
     });
@@ -34,13 +34,14 @@ operands.forEach((num) => {
 operators.forEach((ops) => {
     ops.addEventListener('click', () => {
         // event.target.classList.toggle('selected');          // need to remove once calculated or cleared
-        if (num1 === undefined) return;
+        if (num1 === undefined || String(num1).length > 12) return;
         if (operator != undefined) operate();
         operator = ops.value;
     });
 });
 
 equals.addEventListener('click', () => {
+    if (num1 === undefined || operator === undefined) return;
     operate();
     operator = undefined;
 });
@@ -52,7 +53,7 @@ clear.addEventListener('click', () => {
 });
 
 plusMinus.addEventListener('click', () => {
-    if (num1 === undefined) return;
+    if (num1 === undefined || String(num1).length > 12) return;
     if (operator === undefined) {
         num1 = -num1;
         display.innerHTML = num1;
@@ -63,22 +64,26 @@ plusMinus.addEventListener('click', () => {
 });
 
 percentage.addEventListener('click', () => {
-    if (num1 === undefined) return;
+    if (num1 === undefined || String(num1).length > 12) return;
     if (operator === undefined) {
         num1 /= 100;
+        num1 = +num1.toFixed(10);
         display.innerHTML = num1;
     } else {
         num2 /= 100;
+        num2 = +num2.toFixed(10);
         display.innerHTML = num2;
     }
 });
 
 decimal.addEventListener('click', () => {
+    if (num1 === undefined || String(num1).length > 12) return;
     if (operator === undefined) {
         if (String(num1).includes('.')) return;
         num1 += '.';
         display.innerHTML = num1;
     } else {
+        console.log(typeof(num2))
         if (String(num2).includes('.')) return;
         num2 += '.';
         display.innerHTML = num2;
@@ -86,7 +91,7 @@ decimal.addEventListener('click', () => {
 });
 
 backspace.addEventListener('click', () => {
-    if (num1 === undefined) return;
+    if (num1 === undefined || String(num1).length > 12) return;
     if (operator === undefined) {
         // num1 = Math.floor(num1 / 10);
         num1 = num1.toString();
@@ -109,10 +114,21 @@ function operate() {
     // Conditionals when no operator selected and when dividing by zero
     if (operator === undefined) return;
     if (num2 == 0 && operator == '/') num1 = undefined;
-    else if (operator == '+') num1 = +(add(num1, num2)).toFixed(12);
-    else if (operator == '-') num1 = +(subtract(num1, num2)).toFixed(12);
-    else if (operator == '*') num1 = +(multiply(num1, num2)).toFixed(12);
-    else num1 = +(divide(num1, num2)).toFixed(12);
+    else if (operator == '+') num1 = +add(num1, num2);
+    else if (operator == '-') num1 = +subtract(num1, num2);
+    else if (operator == '*') num1 = +multiply(num1, num2);
+    else num1 = +divide(num1, num2);
+    if (String(num1).includes('.')) {
+        for (i = 10; String(num1).length > 12; i--) {
+            if (i < 0) return;
+            num1 = +num1.toFixed(i);
+            console.log(num1, String(num1).length)
+        }
+    } else if (String(num1).length > 12) {
+        console.log(String(num1).length)
+        if (String(num1).length > 21) return;
+        num1 = num1.toExponential(5);
+    }
     display.innerHTML = num1;
     num2 = 0;
 }
