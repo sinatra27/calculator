@@ -26,7 +26,7 @@ body {
     height: 500px;
     border: 15px solid black;
     /* padding: 1px; */
-    background: #696969;
+    background: lightgray;
 }
 .container * {
     display: flex;
@@ -47,3 +47,30 @@ body {
 }
 
 /***** BUTTONS *****/
+button {
+    background: lightgray;
+}
+
+button:hover {
+    background: darkgray;
+}
+
+.operator, 
+#equal {
+    background: lightyellow;
+}
+
+#clear {
+    background: lightpink;
+}
+
+#sign,
+#percentage,
+#backspace {
+    background: lightcyan;
+}
+
+#backspace {
+    font-size: 36px;
+}
+

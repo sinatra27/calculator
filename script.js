@@ -17,7 +17,6 @@ const backspace = document.querySelector('#backspace');
 // Update calculator operands, operator, and the display when button click event is triggered
 operands.forEach((num) => {
     num.addEventListener('click', () => {
-        // event.stopPropagation();
         if (num1 === undefined || String(num1).length > 12) return;
         if (operator === undefined) {
             if (num1 == 0 && num1[1] != '.') num1 = num1.toString().slice(1);
@@ -33,7 +32,6 @@ operands.forEach((num) => {
 
 operators.forEach((ops) => {
     ops.addEventListener('click', () => {
-        // event.target.classList.toggle('selected');          // need to remove once calculated or cleared
         if (num1 === undefined || String(num1).length > 12) return;
         if (operator != undefined) operate();
         operator = ops.value;
@@ -93,7 +91,6 @@ decimal.addEventListener('click', () => {
 backspace.addEventListener('click', () => {
     if (num1 === undefined || String(num1).length > 12) return;
     if (operator === undefined) {
-        // num1 = Math.floor(num1 / 10);
         num1 = num1.toString();
         if (num1.length > 1) num1 = num1.slice(0 , -1);
         else num1 = 0;
@@ -110,7 +107,6 @@ backspace.addEventListener('click', () => {
 function operate() {
     num1 = +num1;
     num2 = +num2;
-            console.log(num1, typeof(num1), operator, num2, typeof(num2));
     // Conditionals when no operator selected and when dividing by zero
     if (operator === undefined) return;
     if (num2 == 0 && operator == '/') num1 = undefined;
