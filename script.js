@@ -118,7 +118,6 @@ function operate() {
         for (i = 10; String(num1).length > 12; i--) {
             if (i < 0) return;
             num1 = +num1.toFixed(i);
-            console.log(num1, String(num1).length)
         }
     } else if (String(num1).length > 12) {
         console.log(String(num1).length)
