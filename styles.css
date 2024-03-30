@@ -48,7 +48,7 @@ body {
     width: 328px;
     height: auto;
     border: 1px solid black;
-    padding: 10px 5px;
+    padding: 15px 5px;
     font-size: 52px;
 }
 
@@ -72,6 +72,7 @@ button {
 }
 #backspace {
     font-size: 36px;
+    padding-bottom: 10px;
 }
 button:hover,
 #equal:hover,

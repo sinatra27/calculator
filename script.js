@@ -11,7 +11,7 @@ const equals = document.querySelector('#equal');
 const clear = document.querySelector('#clear');
 const plusMinus = document.querySelector('#sign');
 const percentage = document.querySelector('#percentage');
-const decimal = document.querySelector('#decimal');
+const decimal = document.querySelector('.decimal');
 const backspace = document.querySelector('#backspace');
 
 // Update calculator operands, operator, and the display when button click event is triggered
@@ -101,6 +101,16 @@ backspace.addEventListener('click', () => {
         else num2 = 0;
         display.innerHTML = num2;
     }
+});
+
+// Keyboard support
+document.addEventListener('keydown', (e) => {
+    if ((e.key >= 0 && e.key <= 9) || e.key == '.' || e.key == '/' || e.key == '*' || e.key == '-' || e.key == '+') {
+        document.getElementById(e.key).click();
+    } 
+    else if (e.key == '=' || e.key == "Enter") equals.click();
+    else if (e.key == 'Backspace') backspace.click();
+    else if (e.key == 'Escape') clear.click();
 });
 
 // Perform calculations by calling math functions
