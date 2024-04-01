@@ -58,6 +58,9 @@ button {
     border: 1px solid black;
     cursor: pointer;
 }
+.row-fifth * {
+    width: 25%;
+}
 .operator, 
 #equal {
     background: lightyellow;
@@ -86,7 +89,7 @@ button:hover,
 /***** FOOTER *****/
 footer {
     position: absolute;
-    bottom: 0;
+    bottom: 15px;
     width: 340px;
     text-align: center;
     text-shadow: none;
