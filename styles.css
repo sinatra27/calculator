@@ -74,8 +74,8 @@ button {
     background: lightcyan;
 }
 #backspace {
-    font-size: 30px;
-    padding-bottom: 3%;
+    font-size: 28px;
+    padding-bottom: 1.5%;
 }
 button:hover,
 #equal:hover,
