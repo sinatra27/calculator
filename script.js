@@ -81,7 +81,6 @@ decimal.addEventListener('click', () => {
         num1 += '.';
         display.innerHTML = num1;
     } else {
-        console.log(typeof(num2))
         if (String(num2).includes('.')) return;
         num2 += '.';
         display.innerHTML = num2;
@@ -105,6 +104,7 @@ backspace.addEventListener('click', () => {
 
 // Keyboard support
 document.addEventListener('keydown', (e) => {
+    e.preventDefault();                         // Stops clicked buttons from staying clicked/selected
     if ((e.key >= 0 && e.key <= 9) || e.key == '.' || e.key == '/' || e.key == '*' || e.key == '-' || e.key == '+') {
         document.getElementById(e.key).click();
     } 
@@ -130,7 +130,6 @@ function operate() {
             num1 = +num1.toFixed(i);
         }
     } else if (String(num1).length > 12) {
-        console.log(String(num1).length)
         if (String(num1).length > 21) return;
         num1 = num1.toExponential(5);
     }
